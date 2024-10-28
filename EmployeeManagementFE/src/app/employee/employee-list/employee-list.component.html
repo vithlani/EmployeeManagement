@@ -1,0 +1,36 @@
+<!-- src/app/employee-list/employee-list.component.html -->
+<div>
+    <h2>Employee List</h2>
+    <button class="add" [routerLink]="['/employee-form']">Add</button>
+    <input [(ngModel)]="search" placeholder="Search" (keyup.enter)="onSearch()" />
+    <button class="search-clear" [disabled]="search === ''" (click)="clearSearch()">X</button>
+    <table>
+      <thead>
+        <tr>
+          <th (click)="sort = 'employeeID'">Employee ID</th>
+          <th (click)="sort = 'name'">Name</th>
+          <th (click)="sort = 'email'">Email</th>
+          <th (click)="sort = 'mobileNumber'">Mobile Number</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td>{{ employee.employeeID }}</td>
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.mobileNumber }}</td>
+          <td>
+            <button class="edit" [routerLink]="['/employee-form', employee.id]">Edit</button>
+            <button class= "delete" (click)="onDelete(employee.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+        <span>Page {{ currentPage }}</span>
+        <button (click)="nextPage()" [disabled]="sortedEmployees.length < pageSize">Next</button>
+      </div>
+  </div>
+  

@@ -1,0 +1,71 @@
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Name:</label>
+      <input id="name" formControlName="name" />
+      <div *ngIf="employeeForm.get('name')?.invalid && (employeeForm.get('name')?.touched || employeeForm.get('name')?.dirty)">
+        <div *ngIf="employeeForm.get('name')?.errors?.['required']">Name is required.</div>
+        <div *ngIf="employeeForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters long.</div>
+        <div *ngIf="employeeForm.get('name')?.errors?.['maxlength']">Name cannot exceed 128 characters.</div>
+      </div>
+    </div>
+  
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" />
+      <div *ngIf="employeeForm.get('email')?.invalid && (employeeForm.get('email')?.touched || employeeForm.get('email')?.dirty)">
+        <div *ngIf="employeeForm.get('email')?.errors?.['required']">Email is required.</div>
+        <div *ngIf="employeeForm.get('email')?.errors?.['email']">Please enter a valid email.</div>
+      </div>
+    </div>
+  
+    <div>
+      <label for="employeeID">Employee ID:</label>
+      <input id="employeeID" formControlName="employeeID" />
+      <div *ngIf="employeeForm.get('employeeID')?.invalid && (employeeForm.get('employeeID')?.touched || employeeForm.get('employeeID')?.dirty)">
+        <div *ngIf="employeeForm.get('employeeID')?.errors?.['required']">Employee ID is required.</div>
+        <div *ngIf="employeeForm.get('employeeID')?.errors?.['pattern']">Employee ID must be 10 alphanumeric characters.</div>
+      </div>
+    </div>
+  
+    <div>
+      <label for="mobileNumber">Mobile Number:</label>
+      <input id="mobileNumber" formControlName="mobileNumber" />
+      <div *ngIf="employeeForm.get('mobileNumber')?.invalid && (employeeForm.get('mobileNumber')?.touched || employeeForm.get('mobileNumber')?.dirty)">
+        <div *ngIf="employeeForm.get('mobileNumber')?.errors?.['required']">Mobile Number is required.</div>
+        <div *ngIf="employeeForm.get('mobileNumber')?.errors?.['pattern']">Please enter a valid Indian mobile number.</div>
+      </div>
+    </div>
+  
+    <div>
+      <label for="gender">Gender:</label>
+      <select id="gender" formControlName="gender">
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <div *ngIf="employeeForm.get('gender')?.invalid && (employeeForm.get('gender')?.touched || employeeForm.get('gender')?.dirty)">
+        <div *ngIf="employeeForm.get('gender')?.errors?.['required']">Gender is required.</div>
+      </div>
+    </div>
+  
+    <div>
+      <label for="age">Age:</label>
+      <select id="age" formControlName="age">
+        <option *ngFor="let age of getAgeOptions()" [value]="age">{{ age }}</option>
+      </select>
+      <div *ngIf="employeeForm.get('age')?.invalid && (employeeForm.get('age')?.touched || employeeForm.get('age')?.dirty)">
+        <div *ngIf="employeeForm.get('age')?.errors?.['required']">Age is required.</div>
+        <div *ngIf="employeeForm.get('age')?.errors?.['min']">Age must be at least 18.</div>
+        <div *ngIf="employeeForm.get('age')?.errors?.['max']">Age cannot exceed 60.</div>
+      </div>
+    </div>
+  
+    <div>
+      <label for="anotherPhoneNumber">Another Phone Number (optional):</label>
+      <input id="anotherPhoneNumber" formControlName="anotherPhoneNumber" />
+    </div>
+  
+    <button type="submit" [disabled]="employeeForm.invalid">Submit</button>
+</form>
+  
